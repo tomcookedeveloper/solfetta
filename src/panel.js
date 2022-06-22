@@ -27,6 +27,7 @@ function createPanel(id, buttons) {
                 if (event === 'click') {
                     // If we're handling click we don't want to inherit the touchstart from body
                     button.addEventListener('touchstart', x => { x.stopPropagation(); }, { "passive": true });
+                    // Need this for iOS9 support
                     button.addEventListener('touchend', Utils.touchWrapper(buttons[i].eventListeners[event]));
                 }
             }
