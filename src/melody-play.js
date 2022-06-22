@@ -21,7 +21,6 @@ var melodyDifficulty = "easy";
 var melodyPhrase = 0; // The part of the melody we're working on
 
 var savedTonality; // To restore after a preview
-var savedDo; // To restore after a preview
 
 function getMelodySequence() {
     return MelodyUtils.getMelodySequence(Settings.getSetting("melodyNumber"), melodyPhrase);
