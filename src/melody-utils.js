@@ -39,11 +39,25 @@ function peekNextNote(selectedMelody, currentPhrase, currentNoteInPhrase) {
     }
 }
 
+function isLaBasedMinor() {
+    return Settings.getSetting("majorMinor") !== "La-based Minor";
+}
+
+function getTonic() {
+    let currentNote;
+    if (!isLaBasedMinor()) {
+        currentNote = Settings.getSetting("configuredDo");
+    } else {
+        currentNote = Settings.getSetting("configuredDo") - 3;
+    }
+    return currentNote;
+}
+
 // Try to "centre" the melody around middle C so that it will fit in the range of notes played by
 // Solfetta. This returns an adjustment to the initial note number that will be a multiple of 12
 // (an integer number of octaves)
 function getStartAdjustment(melodyNumber) {
-    let currentNote = Settings.getSetting("configuredDo");
+    let currentNote = getTonic();
     let lowestNote = Number.MAX_VALUE;
     let highestNote = -Number.MAX_VALUE;
     let firstNote = null;
@@ -75,7 +89,7 @@ function getStartAdjustment(melodyNumber) {
 // if we change key when following a melody and repeat a phrase it will repeat as though
 // we started in the current key
 function getPreviousNote(melodyNumber, melodyPhrase) {
-    let currentNote = Settings.getSetting("configuredDo") + getStartAdjustment(melodyNumber);
+    let currentNote = getTonic() + getStartAdjustment(melodyNumber);
     if (melodyPhrase === 0) {
         let notes = Melodies.melodies[melodyNumber].notes[0].split(" ");
         for (let y = 0; y < notes.length; y++) {
@@ -106,7 +120,7 @@ function getPreviousNote(melodyNumber, melodyPhrase) {
 // Returns an array of note values which can be used to match against notes played by the user
 function getMelodySequence(melodyNumber, melodyPhrase) {
     let melodySequence = [];
-    let currentNote = Settings.getSetting("configuredDo") + getStartAdjustment(melodyNumber);
+    let currentNote = getTonic() + getStartAdjustment(melodyNumber);
     for (let x = 0; x <= melodyPhrase; x++) {
         let notes = Melodies.melodies[melodyNumber].notes[x].split(" ");
         for (let y = 0; y < notes.length; y++) {
@@ -147,5 +161,6 @@ export {
     peekNextNote,
     getPreviousNote,
     getMelodySequence,
-    parseNoteString
+    parseNoteString,
+    isLaBasedMinor
 }

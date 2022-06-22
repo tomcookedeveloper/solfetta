@@ -5,6 +5,7 @@ import * as Audio from './audio.js'
 import * as Panel from './panel.js'
 import * as NoteButtons from './note-buttons.js'
 import * as MelodyUtils from './melody-utils.js'
+import * as Utils from './utils.js'
 
 var lastEventDetails = {
     "event": null,
@@ -17,8 +18,10 @@ let playerSequence = []; // Sequence of notes that has been played by the user
 
 var playingMelody = false; // Is the user currently copying a melody?
 var melodyDifficulty = "easy";
-
 var melodyPhrase = 0; // The part of the melody we're working on
+
+var savedTonality; // To restore after a preview
+var savedDo; // To restore after a preview
 
 function getMelodySequence() {
     return MelodyUtils.getMelodySequence(Settings.getSetting("melodyNumber"), melodyPhrase);
@@ -123,18 +126,57 @@ function melodyCompleted() {
     clearMelodyHighlight();
 }
 
-function startMelody(difficulty) {
+// If we're in la-based minor we need to change Do for previews to get parallel minor
+function laBasedMinorToMajor() {
+    Settings.setSetting("configuredDo", Utils.mod(Settings.getSetting("configuredDo") - 3, 12));
+}
+
+// If we're in la-based minor we need to change Do for previews to get parallel minor
+function majorToLaBasedMinor() {
+    Settings.setSetting("configuredDo", Utils.mod(Settings.getSetting("configuredDo") + 3, 12));
+}
+
+function setMelodyTonality() {
+    // Set tonality to match song
     let melodyNumber = Settings.getSetting("melodyNumber");
+    let tonality = Melodies.melodies[melodyNumber].tonality;
+    if (tonality && tonality !== Settings.getSetting("tonality")) {
+        savedTonality = Settings.getSetting("tonality");
+        Settings.setSetting("tonality", tonality);
+        if (Settings.getSetting("minor") === "la-based") {
+            if (tonality === "Major") {
+                laBasedMinorToMajor();
+            } else {
+                majorToLaBasedMinor();
+            }
+        }
+        NoteButtons.displayNotes();
+    } else {
+        savedTonality = null;
+    }
+}
+
+function restorePreviousTonality() {
+    // Restore saved tonality after preview
+    if (savedTonality !== null) {
+        Settings.setSetting("tonality", savedTonality);
+        if (Settings.getSetting("minor") === "la-based") {
+            if (savedTonality === "Major") {
+                laBasedMinorToMajor();
+            } else {
+                majorToLaBasedMinor();
+            }
+        }
+        savedTonality = null;
+        NoteButtons.displayNotes();
+    }
+}
+
+function startMelody(difficulty) {
     melodyDifficulty = difficulty;
     melodyPhrase = 0;
     clearPlayerSequence();
-    // Set tonality to match song
-    let tonality = Melodies.melodies[melodyNumber].tonality;
-    if (tonality && tonality !== Settings.getSetting("tonality")) {
-        Settings.setSetting("tonality", tonality);
-        NoteButtons.displayNotes();
-    }
-
+    setMelodyTonality();
     playMelody();
 }
 
@@ -229,6 +271,8 @@ function previewMelody() {
 
     queuedEvents = []; // clear global queue of events to be scheduled
 
+    setMelodyTonality(); // want to preview using correct tonality of melody
+
     // Queue all events for this melody
     for (let phrase = 0; phrase < Melodies.melodies[melodyNumber].notes.length; phrase++) {
         let melodyPlayData = buildMelodyPlayData(Settings.getSetting("melodyNumber"), phrase, startTime);
@@ -239,7 +283,10 @@ function previewMelody() {
     // Show the panel, queue an event to show the melody panel again, and schedule the first event
     Panel.showPanel("playing");
     if (queuedEvents.length > 0) {
-        queuedEvents.push([function() { Panel.showPanel("melody"); }, 0]);
+        queuedEvents.push([function() {
+            restorePreviousTonality();
+            Panel.showPanel("melody");
+        }, 0]);
         scheduleFirstEvent();
     }
 }
@@ -302,6 +349,7 @@ function advanceMelody() {
 }
 
 function stopMelodyPlaying() {
+    restorePreviousTonality();
     Audio.stopAllPlaying();
     queuedEvents = [];
     if (lastEventDetails.event != null) {

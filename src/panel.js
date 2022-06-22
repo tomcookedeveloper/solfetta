@@ -1,4 +1,3 @@
-import * as Utils from './utils.js'
 import * as Display from './display.js';
 
 let panelDefinitions = [];

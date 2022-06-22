@@ -201,7 +201,12 @@ function noteNameText(noteValue) {
 }
 
 function getNoteSolfa(thisNoteValue) {
-    let thisNoteType = Utils.mod(thisNoteValue - Settings.getSetting("configuredDo"), 12);
+    let thisNoteType;
+    if (Settings.getSetting("majorMinor") !== "La-based Minor") {
+        thisNoteType = Utils.mod(thisNoteValue - Settings.getSetting("configuredDo"), 12);
+    } else {
+        thisNoteType = Utils.mod(thisNoteValue - Settings.getSetting("configuredDo") + 3, 12);
+    }
     return noteInfoSolfa[thisNoteType]["lowered"];
 }
 
