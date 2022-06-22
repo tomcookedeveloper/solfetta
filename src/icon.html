@@ -1,0 +1,103 @@
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Solfetta Logo</title>
+
+    <style>
+        body,
+        html {
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
+            min-height: 100%;
+            font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+            font-weight: 300;
+            margin: 0;
+        }
+        
+        .lightMode {
+            background-color: white;
+            border-color: black;
+            color: #000;
+        }
+        
+        .button {
+            display: flex;
+            user-select: none;
+            float: left;
+            align-items: center;
+            justify-content: center;
+            margin: 0px;
+            position: absolute;
+        }
+        
+        .featureLogo {
+            position: absolute;
+            background-color: transparent;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .diatonic.lightMode {
+            background-color: #dae3f1;
+        }
+        
+        .chromatic.lightMode {
+            background-color: #90aad5;
+        }
+    </style>
+
+    <script>
+        function main() {
+            let appName = "SOLFE♥TTA";
+            let size = 128;
+            let spaceBetweenNoteButtons = 1;
+            let borderWidth = 1;
+            let borders = borderWidth * 2;
+            let width = (size - borders) / 3;
+
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    let thisElement = document.createElement("div");
+                    thisElement.innerHTML = appName[(i) * 3 + j];
+                    thisElement.className = "button";
+
+                    if (i === 0) {
+                        thisElement.style.paddingTop = 0;
+                    } else if (i === 2) {
+                        thisElement.style.paddingBottom = 0;
+                    }
+
+                    if (j === 0) {
+                        thisElement.style.paddingLeft = 0;
+                    } else if (j === 2) {
+                        thisElement.style.paddingRight = 0;
+                    }
+
+                    thisElement.style.width = width;
+                    thisElement.style.height = width;
+                    thisElement.style.left = (width + spaceBetweenNoteButtons) * j;
+                    thisElement.style.top = (width + spaceBetweenNoteButtons) * i;
+                    thisElement.style.fontSize = (width / 1.5) + "px";
+                    thisElement.style.textAlign = "center";
+                    thisElement.classList.add("lightMode");
+                    thisElement.classList.add(((i * 3 + j) % 2 > 0) ? "chromatic" : "diatonic");
+                    document.body.appendChild(thisElement);
+                }
+            }
+        }
+    </script>
+</head>
+
+<body onLoad="main()">
+    <div id="tableContainer" style="width:128px; height:128px">
+        <table id="logoTable" style="width:128px; height:128px">
+        </table>
+    </div>
+</body>
+
+</html>
