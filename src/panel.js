@@ -1,4 +1,5 @@
 import * as Display from './display.js';
+import * as Utils from './utils.js';
 
 let panelDefinitions = [];
 let savedPanelWidth;
@@ -25,9 +26,6 @@ function createPanel(id, buttons) {
                     button.addEventListener(event, buttons[i].eventListeners[event], { "passive": false });
                 }
                 if (event === 'click') {
-                    // If we're handling click we don't want to inherit the touchstart from body
-                    button.addEventListener('touchstart', x => { x.stopPropagation(); }, { "passive": true });
-                    // Need this for iOS9 support
                     button.addEventListener('touchend', Utils.touchWrapper(buttons[i].eventListeners[event]));
                 }
             }

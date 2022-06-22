@@ -153,10 +153,7 @@ const settingsButtons = [{
         ],
         "eventListeners": {
             "click": function(e) {
-                // Use a setTimeout to prevent ghost clicks opening help twice
-                setTimeout(function() {
-                    window.open('https://github.com/tomcookedeveloper/solfetta#readme', '_blank');
-                }, 0);
+                window.open('https://github.com/tomcookedeveloper/solfetta#readme', '_blank');
             }
         }
     },
