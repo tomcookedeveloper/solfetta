@@ -17,6 +17,7 @@ Solfetta uses no cookies. Settings are stored using browser local storage.
 1. Every so often you may find that the app goes silent. This appears to be unavoidable when working with Web Audio on iOS devices at least. You can reload your browser window to fix the problem or if you have added the app you can use Audio->Fix Audio in the Solfetta menu which will also cause the app to reload.
 2. I've only been able to test on older Android devices so far and the latency (delay between pressing a button and hearing a note) was disappointing. I understand there have been improvements in this area so I'm hoping people with newer phones will have a better experience. This reflects WebAudio performance and there's not much I can do to improve it.
 3. Unfortunately when playing with more than one finger at a time you may find that sometimes touches are missed, especially when playing notes near the edges of the screen. There doesn't seem to be much that can be done about this but please let me know if you know otherwise.
+4. On older devices you may need to play at least one note using the note buttons before using the melody button in order to hear sound.
 
 ## Why I made this app
 
