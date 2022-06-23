@@ -21,7 +21,7 @@ Solfetta uses no cookies. Settings are stored using browser local storage.
 
 ## Why I made this app
 
-I have long dreamed of to be able to play by ear without making mistakes and with effortless awareness of the notes being played and their musical function. I first tried using ear training software almost 25 years ago and have come back to it every now and again, without ever making all that much progress. Most recently, when my youngest reached school age and I began to have some more free time after a few very busy years it felt like a good time to have another try.
+I have long dreamed of being able to play by ear without making mistakes and with effortless awareness of the notes being played and their musical function. I first tried using ear training software almost 25 years ago and have come back to it every now and again, without ever making all that much progress. Most recently, when my youngest reached school age and I began to have some more free time after a few very busy years it felt like a good time to have another try.
 
 After a while it became clear that the options I had weren't really working for me. I didn't often have a good block of free time to sit down at an instrument at a time when it would have been acceptable to make noise, I was self-conscious about being overheard going through the trial-and-error process of figuring out music by ear anyway, and maintaining awareness of the notes being played was an effort I wasn't often prepared to make.
 
