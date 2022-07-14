@@ -52,10 +52,21 @@ const displayButtons = [{
         "text": "Minor:",
         "position": [
             [0, 2],
-            [3, 2]
+            [1, 2]
         ],
         "eventListeners": {
             'click': displayMinorClick
+        }
+    },
+    {
+        "id": "displayLabels",
+        "text": "Labels:",
+        "position": [
+            [2, 2],
+            [3, 2]
+        ],
+        "eventListeners": {
+            'click': displayLabelsClick
         }
     },
     {
@@ -106,6 +117,13 @@ function displayMinorClick() {
     NoteButtons.displayNotes();
 }
 
+function displayLabelsClick() {
+    const options = ["on", "off", "held-note"];
+    Settings.setSetting("labels", options[(options.indexOf(Settings.getSetting("labels")) + 1) % options.length]);
+    updateSettingsButtons();
+    NoteButtons.displayNotes();
+}
+
 function displaySoSolClick() {
     const options = ["So", "Sol"];
     Settings.setSetting("soSol", options[(options.indexOf(Settings.getSetting("soSol")) + 1) % options.length]);
@@ -120,10 +138,10 @@ function init() {
 function updateSettingsButtons() {
     document.getElementById("displayDarkMode").innerHTML = "Dark: " + ((Settings.getSetting("darkMode")) ? "On" : "Off");
     document.getElementById("displayHighlights").innerHTML = "Highlights: " + ((Settings.getSetting("highlights")) ? "On" : "Off");
-    document.getElementById("displayRaisedLowered").innerHTML = "Solfa:</br>" + { "raised": "Raised", "lowered": "Lowered", "both": "Both" }[Settings.getSetting("raisedLowered")];
-    document.getElementById("displayMinor").innerHTML = { "do-based": "Minor: Do-Based", "la-based": "Minor: La-Based" }[Settings.getSetting("minor")];
-    document.getElementById("displaySoSol").innerHTML = { "Sol": "So/Sol: Sol", "So": "So/Sol: So" }[Settings.getSetting("soSol")];
-
+    document.getElementById("displayRaisedLowered").innerHTML = "Solfa:<br/>" + { "raised": "Raised", "lowered": "Lowered", "both": "Both" }[Settings.getSetting("raisedLowered")];
+    document.getElementById("displayMinor").innerHTML = "Minor:<br/>" + { "do-based": "Do-Based", "la-based": "La-Based" }[Settings.getSetting("minor")];
+    document.getElementById("displayLabels").innerHTML = "Labels:<br/>" + { "on": "On", "off": "Off", "held-note": "Held Note" }[Settings.getSetting("labels")];
+    document.getElementById("displaySoSol").innerHTML = "So/Sol: " + { "Sol": "Sol", "So": "So" }[Settings.getSetting("soSol")];
 }
 
 export {

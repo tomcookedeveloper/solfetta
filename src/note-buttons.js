@@ -59,8 +59,8 @@ function noteButtonMouseUp(e) {
         MelodyPlay.processPlayedNote(noteValue);
         if (holdNoteValue != null) {
             holdNoteValue = null;
-            displayNotes();
         }
+        displayNotes();
     }
 }
 
@@ -157,9 +157,14 @@ function displayNotes() {
         }
 
         // Set note text
-        if (thisNoteValue !== holdNoteValue || notes[thisButtonIndex].innerHTML === "") {
-            let noteText = Music.getNoteText(thisNoteValue, getLastNoteValue());
-            notes[thisButtonIndex].innerHTML = noteText;
+        if (Settings.getSetting("labels") === "on" ||
+            (Settings.getSetting("labels") === "held-note" && Audio.noteIsPlaying(thisNoteValue))) {
+            if (thisNoteValue !== holdNoteValue || notes[thisButtonIndex].innerHTML === "") {
+                let noteText = Music.getNoteText(thisNoteValue, getLastNoteValue());
+                notes[thisButtonIndex].innerHTML = noteText;
+            }
+        } else {
+            notes[thisButtonIndex].innerHTML = "";
         }
     }
 
