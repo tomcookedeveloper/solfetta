@@ -29,10 +29,6 @@ function getModeButtonClickHandler(selectDisplayMode) {
         if (Settings.getSetting("displayMode") !== selectDisplayMode) {
             Settings.setSetting("displayMode", selectDisplayMode);
             updateFeatureButtons();
-        } else {
-            if (!Panel.isPanelShowing()) {
-                Settings.setSetting("highlights", !Settings.getSetting("highlights"));
-            }
         }
 
         Panel.hideAllPanels();

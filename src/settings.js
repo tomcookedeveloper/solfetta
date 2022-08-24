@@ -26,7 +26,7 @@ function getSetting(key) {
         "displayMode": "solfege",
         "raisedLowered": "lowered",
         "configuredDo": 0,
-        "highlights": true,
+        "highlights": "on",
         "darkMode": false,
         "aFrequency": 440,
         "tonality": "Major",

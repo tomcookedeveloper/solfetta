@@ -139,12 +139,14 @@ function displayNotes() {
         }
 
         // Apply styles
-        if (Music.noteIsInKey(thisNoteValue, Settings.getSetting("configuredDo"), Settings.getSetting("majorMinor")) || !Settings.getSetting("highlights")) {
+        let keyToCheck = Settings.getSetting("highlights") !== "on-c" ? Settings.getSetting("configuredDo") : 0;
+        let tonalityToCheck = Settings.getSetting("highlights") !== "on-c" ? Settings.getSetting("majorMinor") : "Major";
+        if (Music.noteIsInKey(thisNoteValue, keyToCheck, tonalityToCheck) || Settings.getSetting("highlights") == "off") {
             notes[thisButtonIndex].classList.add("diatonic");
             notes[thisButtonIndex].classList.remove("chromatic");
             notes[thisButtonIndex].classList.remove("octave");
             if (Music.noteIsTonic(thisNoteValue, Settings.getSetting("configuredDo"), Settings.getSetting("majorMinor")) &&
-                Settings.getSetting("highlights")) {
+                Settings.getSetting("highlights") !== "off") {
                 notes[thisButtonIndex].classList.add("tonic");
             } else {
                 notes[thisButtonIndex].classList.remove("tonic");
