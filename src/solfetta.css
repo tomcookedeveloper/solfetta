@@ -163,3 +163,7 @@ html {
 .melodyHighlight.darkMode {
     background-color: #d7b11b;
 }
+
+.hidden-label {
+    color: transparent;
+}

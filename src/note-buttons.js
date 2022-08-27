@@ -159,14 +159,16 @@ function displayNotes() {
         }
 
         // Set note text
+        if (thisNoteValue !== holdNoteValue || notes[thisButtonIndex].innerHTML === "") {
+            let noteText = Music.getNoteText(thisNoteValue, getLastNoteValue());
+            notes[thisButtonIndex].innerHTML = noteText;
+        }
+
         if (Settings.getSetting("labels") === "on" ||
             (Settings.getSetting("labels") === "held-note" && Audio.noteIsPlaying(thisNoteValue))) {
-            if (thisNoteValue !== holdNoteValue || notes[thisButtonIndex].innerHTML === "") {
-                let noteText = Music.getNoteText(thisNoteValue, getLastNoteValue());
-                notes[thisButtonIndex].innerHTML = noteText;
-            }
+            notes[thisButtonIndex].classList.remove("hidden-label");
         } else {
-            notes[thisButtonIndex].innerHTML = "";
+            notes[thisButtonIndex].classList.add("hidden-label");
         }
     }
 
