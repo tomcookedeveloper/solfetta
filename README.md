@@ -55,17 +55,17 @@ When you start Solfetta you will see a grid containing solfa symbols and five bu
 
 The notes in the playing area are arranged so that there is a semitone separating each note button and the button to the right of it. If there is no button to the right, we move to the next row up. This means that the highest notes are at the top of the display and the lowest notes are at the bottom. This layout may be somewhat familiar to guitar players.
 
-If highlighting is enabled, notes that are not in the currently selected key will be displayed using a different colour.
+If highlighting is enabled, notes that are not in the currently selected key will be displayed using a different colour. You can also choose to highlight in C Major / A Minor instead of the currently selected key so that the highlights reflect white keys vs black keys.
 
 ### Intervals mode
 
 In intervals mode the button labels show the interval between the note last played and the note that will be played if the button is pressed, using standard abbreviations. Of course this means that the labels will change every time a new note is played. This takes a bit of getting used to but provides the ability to gain more confidence with intervals by picking out tunes by ear.
 
-Interval names are a bit of a mouthful to sing. I experimented a bit with alternative singable names but ultimately decided that that would be overcomplicating things. I think there are two viable approaches, either play slowly enough that you can actually sing "perfect fourth" or "major third" for a single note without a problem, or focus on developing an association with between the sound and the appearance of the abbreviation as it appears on the display.
+Interval names are a bit of a mouthful to sing. I experimented a bit with alternative singable names but ultimately decided that that would be overcomplicating things. I think there are two viable approaches, either play slowly enough that you can actually sing "perfect fourth" or "major third" for a single note without a problem, or focus on developing an association between the sound and the appearance of the abbreviation as it appears on the display.
 
-One fun thing about this mode is that if you turn off the highlighting (side note: highlighting can be quickly toggled on and off by pressing the button for the currently selected mode) then it is effectively "keyless". You can start playing anywhere you want and it won't be the wrong note relative to Do, because there isn't a Do. If the music you're playing modulates to a different key there's no need to stop and change the key setting.
+One fun thing about this mode is that if you turn off the highlighting then it is effectively "keyless". You can start playing anywhere you want and it won't be the wrong note relative to Do, because there isn't a Do. If the music you're playing modulates to a different key there's no need to stop and change the key setting.
 
-You'll see blank spaces in this mode sometimes as we don't label any notes that are more than two octaves away from the last note.
+You'll see blank spaces in this mode sometimes as Solfetta doesn't label any notes that are more than two octaves away from the last note.
 
 ### Solfa mode
 
@@ -77,7 +77,7 @@ The "proper" way to sing solfa is to use the ascending syllable e.g. "fi" for ac
 
 In this mode, the button labels show the musical notes as they are named in your currently selected key.
 
-I initially thought that the thing to do would be to "master" solfa and then move on to learning the mapping of solfa syllables to note names for each key. I've since moved on to thinking that this is unnecessary and switching between solfa and note names helps to keep things interesting. Just like with a real instrument it's probably best to build up confidence in playing in different keys one or two at a time.
+I initially thought that the thing to do would be to "master" solfa and then move on to learning the mapping of solfa syllables to note names for each key. In practice I've found that after getting quite good at solfa I wanted to move towards mapping solfa directly onto my instrument in a given key without focusing on note names all that much. Nevertheless I think there will be times when the notes mode is still useful.
 
 Accidentals are shown using sharps in keys where the key signature contains sharps and flats where the key signature contains flats. This is a compromise over the proper approach of flattening on the way down and sharpening on the way up but it reduces clutter and I think it's sufficient for ear training.
 
@@ -115,7 +115,7 @@ I've not been able to prevent iOS from sometimes rendering the current WebAudio 
 
 ### Display settings
 
-The display settings are mostly self-explanatory although you may want to look up the differences between do-based and la-based minor.
+The display settings are mostly self-explanatory although you may want to look up the differences between do-based and la-based minor. It's worth noting that you can completely hide the labels, or have them just show when you press a button, if you want.
 
 ## Development
 
