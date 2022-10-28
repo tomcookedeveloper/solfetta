@@ -308,7 +308,7 @@ function highlightNextNote() {
     clearMelodyHighlight();
     // Always highlight first note in sequence when it's the next note that should be played,
     // only highlight others in easy mode
-    if (playingMelody && (melodyDifficulty === "easy" || bestMatchingLength === 0)) {
+    if (playingMelody) {
         let melodySequence = getMelodySequence();
         let bestMatchingLength = 0;
 
@@ -328,7 +328,9 @@ function highlightNextNote() {
             }
         }
 
-        setMelodyHighlight(melodySequence[bestMatchingLength]);
+        if (melodyDifficulty === "easy" || (melodyDifficulty === "medium" && bestMatchingLength === 0)) {
+            setMelodyHighlight(melodySequence[bestMatchingLength]);
+        }
     }
 }
 
