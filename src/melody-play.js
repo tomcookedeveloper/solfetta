@@ -328,7 +328,7 @@ function highlightNextNote() {
             }
         }
 
-        if (melodyDifficulty === "easy" || (melodyDifficulty === "medium" && bestMatchingLength === 0)) {
+        if (melodyDifficulty === "easy" || bestMatchingLength === 0) {
             setMelodyHighlight(melodySequence[bestMatchingLength]);
         }
     }
