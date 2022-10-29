@@ -91,7 +91,7 @@ function displayDarkClick() {
 }
 
 function displayHighlightsClick() {
-    const options = ["on", "off", "on-c"];
+    const options = ["on", "off"];
     Settings.setSetting("highlights", options[(options.indexOf(Settings.getSetting("highlights")) + 1) % options.length]);
     updateSettingsButtons();
     NoteButtons.displayNotes();
@@ -138,7 +138,7 @@ function init() {
 
 function updateSettingsButtons() {
     document.getElementById("displayDarkMode").innerHTML = "Dark: " + ((Settings.getSetting("darkMode")) ? "On" : "Off");
-    document.getElementById("displayHighlights").innerHTML = "Highlights: " + { "on": "On<br/>(Current Key)", "off": "Off", "on-c": "On<br/>(C Major)" }[Settings.getSetting("highlights")];
+    document.getElementById("displayHighlights").innerHTML = "Highlights: " + { "on": "On", "off": "Off" }[Settings.getSetting("highlights")];
     document.getElementById("displayRaisedLowered").innerHTML = "Solfa:<br/>" + { "raised": "Raised", "lowered": "Lowered", "both": "Both" }[Settings.getSetting("raisedLowered")];
     document.getElementById("displayMinor").innerHTML = "Minor:<br/>" + { "do-based": "Do-Based", "la-based": "La-Based" }[Settings.getSetting("minor")];
     document.getElementById("displayLabels").innerHTML = "Labels:<br/>" + { "on": "On", "off": "Off", "held-note": "Held Note" }[Settings.getSetting("labels")];

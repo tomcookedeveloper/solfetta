@@ -139,8 +139,8 @@ function displayNotes() {
         }
 
         // Apply styles
-        let keyToCheck = Settings.getSetting("highlights") !== "on-c" ? Settings.getSetting("configuredDo") : 0;
-        let tonalityToCheck = Settings.getSetting("highlights") !== "on-c" ? Settings.getSetting("majorMinor") : "Major";
+        let keyToCheck = Settings.getSetting("configuredDo");
+        let tonalityToCheck = Settings.getSetting("majorMinor");
         if (Music.noteIsInKey(thisNoteValue, keyToCheck, tonalityToCheck) || Settings.getSetting("highlights") == "off") {
             notes[thisButtonIndex].classList.add("diatonic");
             notes[thisButtonIndex].classList.remove("chromatic");
