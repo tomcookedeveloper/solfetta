@@ -131,8 +131,8 @@ function displayNotes() {
             continue;
         }
 
-        // Highlight if last note button clicked
-        if (buttonIndexToNoteValue(thisButtonIndex) === lastNoteValue) {
+        // Highlight if note is playing
+        if (Audio.noteIsPlaying(thisNoteValue)) {
             notes[thisButtonIndex].classList.add("highlighted");
         } else {
             notes[thisButtonIndex].classList.remove("highlighted");
