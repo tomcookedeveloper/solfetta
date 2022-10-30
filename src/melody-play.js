@@ -28,6 +28,7 @@ function getMelodySequence() {
 
 function processPlayedNote(playedNote) {
     if (playingMelody) {
+        let melodyAdvanced = false;
         let melodySequence = getMelodySequence();
         playerSequence.push(playedNote);
         if (melodySequence.length > 0) { // is the user currently repeating a phrase?
@@ -45,10 +46,13 @@ function processPlayedNote(playedNote) {
                 }
                 if (match) {
                     advanceMelody(); // true means move on to next phrase
+                    melodyAdvanced = true;
                 }
             }
         }
-        highlightNextNote();
+        if (!melodyAdvanced) {
+            highlightNextNote();
+        }
     }
 }
 
@@ -249,7 +253,10 @@ function playMelody(delay) {
 
     // Show the panel, queue an event to show the hide the panel, and schedule the first event
     if (queuedEvents.length > 0) {
-        queuedEvents.push([function() { Panel.hidePanel("playing"); }, 0]);
+        queuedEvents.push([function() {
+            Panel.hidePanel("playing");
+            highlightNextNote();
+        }, 0]);
         scheduleFirstEvent();
     }
 
@@ -260,7 +267,6 @@ function playMelody(delay) {
     }
 
     playingMelody = true; // global variable that indicates the user is now repeating a played melody
-    highlightNextNote();
 }
 
 function previewMelody() {
