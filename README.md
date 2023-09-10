@@ -10,7 +10,7 @@ You can add Solfetta to your home screen like any other web page and this will g
 
 Solfetta is open source under the MIT license. It uses the [webaudio-tinysynth](https://github.com/g200kg/webaudio-tinysynth) library for its sounds.
 
-Solfetta uses no cooki)es. Settings are stored using browser local storage.
+Solfetta uses no cookies. Settings are stored using browser local storage.
 
 ### IMPORTANT NOTES:
 
