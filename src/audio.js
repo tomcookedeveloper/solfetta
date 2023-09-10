@@ -4,13 +4,13 @@ let synth = null;
 var playingNotes = {};
 
 const sounds = {
-    "0": "Acoustic Grand",
-    "2": "Electric Grand",
+    "0": "Grand Piano",
+    "2": "Electric Piano",
     "8": "Celesta",
     "11": "Vibraphone",
     "12": "Marimba",
     "18": "Rock Organ",
-    "24": "Nylon guitar",
+    "24": "Nylon Guitar",
     "29": "Overdrive",
     "33": "Finger Bass",
     "46": "Harp",

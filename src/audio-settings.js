@@ -69,10 +69,30 @@ const audioButtons = [{
         "text": "",
         "position": [
             [0, 2],
+            [1, 2]
+        ],
+        "eventListeners": {}
+    },
+    {
+        "id": "prevSound",
+        "text": "-",
+        "position": [
+            [2, 2],
+            [2, 2]
+        ],
+        "eventListeners": {
+            'click': prevSoundClick
+        }
+    },
+    {
+        "id": "nextSound",
+        "text": "+",
+        "position": [
+            [3, 2],
             [3, 2]
         ],
         "eventListeners": {
-            'click': soundClick
+            'click': nextSoundClick
         }
     },
     {
@@ -337,7 +357,13 @@ function volumeDownClick() {
     updateSettingsButtons();
 }
 
-function soundClick() {
+function prevSoundClick() {
+    const soundKeys = Object.keys(Audio.getSounds());
+    Settings.setSetting("program", soundKeys[(soundKeys.indexOf(Settings.getSetting("program")) + soundKeys.length - 1) % soundKeys.length]);
+    updateSettingsButtons();
+}
+
+function nextSoundClick() {
     const soundKeys = Object.keys(Audio.getSounds());
     Settings.setSetting("program", soundKeys[(soundKeys.indexOf(Settings.getSetting("program")) + 1) % soundKeys.length]);
     updateSettingsButtons();
@@ -352,7 +378,7 @@ function init() {
 }
 
 function updateSettingsButtons() {
-    document.getElementById("sound").innerHTML = "Sound: " + Audio.getSounds()[Settings.getSetting("program")];
+    document.getElementById("sound").innerHTML = "Sound:<br/>" + Audio.getSounds()[Settings.getSetting("program")];
     document.getElementById("volume").innerHTML = "Volume: " + Math.round(Settings.getSetting("volume") * 10);
     document.getElementById("tuningValue").innerHTML = "A: " + Settings.getSetting("aFrequency").toFixed(1) + "Hz";
     document.getElementById("tuningTuningValue").innerHTML = "A: " + Settings.getSetting("aFrequency").toFixed(1) + "Hz";
