@@ -1,129 +1,91 @@
 import * as Settings from './settings.js'
 
-let context = null;
-var playingOscillators = {};
-var noteOnsets = {};
-var playingGainNodes = {};
+let synth = null;
+var playingNotes = {};
 
-const sounds = { "square": "Loud Tone", "triangle": "Soft Tone", "sawtooth": "Buzz" };
+const sounds = {
+    0: "Acoustic Grand",
+    1: "Electric Grand",
+    8: "Celesta",
+    11: "Vibraphone",
+    12: "Marimba",
+    18: "Rock Organ",
+    24: "Nylon guitar",
+    29: "Overdrive",
+    33: "Finger Bass",
+    46: "Harp",
+    56: "Trumpet",
+    73: "Flute",
+    112: "Tinkle Bell"
+};
 
 // Solfetta used to have the ability to add extra latency to note starts to help avoid initial clicks
 // on devices where this was a problem. This seems not to be an issue now on devices I have tested on
 // so it's no longer exposed in the UI as a config option but the "audioSpeed" setting can still
 // be set programmatically to one of the other options
-const audioLatencies = { "Slow": 0.2, "Fast": 0.01, "Medium": 0.1 };
 const twelfthRootOfTwo = 1.05946309436;
 
-function getContext() {
-    if (context == null) {
-        var AudioContext = window.AudioContext || window.webkitAudioContext;
-        context = new AudioContext();
-        return context;
-    } else {
-        return context;
+function getSynth() {
+    if (synth == null) {
+        synth = new WebAudioTinySynth({});
+        synth.setBendRange(1, 0x80);
     }
+    synth.setProgram(1, Number.parseInt(Settings.getSetting("sound")));
+
+    return synth;
 }
 
 function initContext() {
-    getContext();
+    getSynth();
 }
 
 function resetContext() {
-    if (context != null) {
-        context.close();
-    }
-    context = null;
+    synth = null;
 }
 
-function getOscillator() {
-    var context = getContext();
-    var oscillator = context.createOscillator();
-    oscillator.type = Settings.getSetting("sound");
-    var gain = context.createGain();
-    oscillator.connect(gain);
-    gain.connect(context.destination);
-
-    return [oscillator, gain];
+function updateBendLevel() {
+    let aFrequency = Settings.getSetting("aFrequency");
+    let bendLevel = 8192; // no bend
+    if (aFrequency > 440.0) {
+        let frequencyRatio = (Settings.getSetting("aFrequency") - 440.0) / 440.0;
+        let fractionOfSemitone = frequencyRatio / (twelfthRootOfTwo - 1);
+        bendLevel = Math.ceil(8192 * fractionOfSemitone) + 8192;
+    } else if (aFrequency < 440.0) {
+        let frequencyRatio = (440.0 - Settings.getSetting("aFrequency")) / 440.0;
+        let fractionOfSemitone = frequencyRatio / (twelfthRootOfTwo - 1);
+        bendLevel = 8192 - Math.ceil(8192 * fractionOfSemitone);
+    }
+    synth.setBend(1, bendLevel);
 }
 
 function updateFrequencyOfPlayingNote(playingNote) {
-    if (playingOscillators.hasOwnProperty(playingNote)) {
-        playingOscillators[playingNote].frequency.setValueAtTime(Settings.getSetting("aFrequency") * Math.pow(twelfthRootOfTwo, playingNote - 9), context.currentTime);
+    if (playingNotes.hasOwnProperty(playingNote)) {
+        updateBendLevel();
+        // playingNotes[playingNote].frequency.setValueAtTime(Settings.getSetting("aFrequency") * Math.pow(twelfthRootOfTwo, playingNote - 9), context.currentTime);
     }
 }
 
 function playNote(noteValue) {
-    var oscStruct = getOscillator();
-    var oscillator = oscStruct[0];
-    var gain = oscStruct[1];
 
-    if (!playingOscillators.hasOwnProperty(noteValue)) {
-        let context = getContext();
-        const audioSpeed = Settings.getSetting("audioSpeed");
+    getSynth();
 
-        // -9 because our note 0 is middle C not A
-        oscillator.frequency.setValueAtTime(Settings.getSetting("aFrequency") * Math.pow(twelfthRootOfTwo, noteValue - 9), context.currentTime); // value in hertz    
-        const latency = audioLatencies[audioSpeed];
-        const volume = Settings.getSetting("volume");
+    const volume = Math.ceil(Settings.getSetting("volume") * 127);
+    updateBendLevel();
+    synth.noteOn(1, noteValue + 60, volume);
 
-        oscillator.start(context.currentTime + latency);
-        noteOnsets[noteValue] = context.currentTime + latency;
-        gain.gain.setValueAtTime(0, context.currentTime);
-        gain.gain.setTargetAtTime(volume * volume, context.currentTime + latency, 0.01);
-
-        playingOscillators[noteValue] = oscillator;
-        playingGainNodes[noteValue] = gain;
-    }
+    playingNotes[noteValue] = true;
 }
 
 function stopAllPlaying() {
-    let keys = Object.keys(playingOscillators);
+    let keys = Object.keys(playingNotes);
     for (let i = 0; i < keys.length; i++) {
         stopPlaying(keys[i]);
     }
 }
 
-function stopPlayingAux(oscillator, gainNode, onset) {
-    let context = getContext();
-    let nowTime = context.currentTime;
-    const endLatency = 0.2;
-
-    // Use the gain node to stop the sound of the node
-    gainNode.gain.setValueAtTime(gainNode.gain.value, context.currentTime + 0.01);
-    gainNode.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + 0.08);
-
-    // Keep the oscillator going long enough to allow the note to end without a click
-    const duration = nowTime - onset + endLatency;
-    oscillator.stop(onset + duration);
-}
-
-function getStopPlayingAux(oscillator, gainNode, onset) {
-    return function() {
-        stopPlayingAux(oscillator, gainNode, onset);
-    }
-}
-
 function stopPlaying(noteValue) {
-    const onset = noteOnsets[noteValue];
-    const minDuration = 0.1;
-    let context = getContext();
-    let nowTime = context.currentTime;
-    if ((nowTime - onset) < minDuration) {
-        // We enforce a minimum duration to prevent unpleasant clicks from very short touches
-        if (playingOscillators[noteValue]) {
-            setTimeout(getStopPlayingAux(playingOscillators[noteValue], playingGainNodes[noteValue],
-                noteOnsets[noteValue]), (minDuration - (nowTime - onset)) * 1000);
-        }
-    } else {
-        if (playingOscillators.hasOwnProperty(noteValue)) {
-            stopPlayingAux(playingOscillators[noteValue], playingGainNodes[noteValue],
-                noteOnsets[noteValue]);
-        }
-    }
-
-    // Clean up
-    delete playingOscillators[noteValue];
-    delete playingGainNodes[noteValue];
+    synth.noteOff(1, noteValue + 60);
+    delete playingNotes[noteValue];
 };
 
 // Expose the sound options so the settings dialogue can use them
@@ -132,7 +94,7 @@ function getSounds() {
 }
 
 function noteIsPlaying(note) {
-    return playingOscillators.hasOwnProperty(note);
+    return playingNotes.hasOwnProperty(note);
 }
 
 export {
