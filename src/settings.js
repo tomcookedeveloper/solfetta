@@ -20,7 +20,7 @@ const storedSettings = ["audioSpeed", "volume", "raisedLowered", "highlights", "
 function getSetting(key) {
 
     const defaults = {
-        "appVersion": "1.0.0",
+        "appVersion": "2.0.0",
         "audioSpeed": "Fast",
         "volume": 0.5,
         "displayMode": "solfege",
@@ -355,9 +355,9 @@ const messageButtons = [{
 
 const aboutButtons = [{
     "id": "aboutText",
-    "text": "<p>Solfetta Version " + getSetting("appVersion") + "</p><p>&copy; 2022 Tom Cooke</p><p>License: MIT</p>" +
+    "text": "<p>Solfetta Version " + getSetting("appVersion") + "</p><p>&copy; 2023 Tom Cooke</p><p>License: MIT</p>" +
         "<p><a href=\"https://github.com/tomcookedeveloper/solfetta\" target=\"_blank\">Solfetta on GitHub</a>" +
-        "<p><a href=\"mailto:TomCookeDeveloper@gmail.com\">Email Me</a>",
+        "<p>Sounds by <a href=\"https://github.com/g200kg/webaudio-tinysynth\">webaudio-tinysynth</a></p>",
     "position": [
         [0, 0],
         [3, 3]

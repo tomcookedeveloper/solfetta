@@ -8,7 +8,7 @@ Solfetta is a small, simple web app designed to make it convenient to practise p
 
 You can add Solfetta to your home screen like any other web page and this will give you a more app-like experience with more space used for the app and no browser controls appearing.
 
-Solfetta is open source under the MIT license.
+Solfetta is open source under the MIT license. It uses the [https://github.com/g200kg/webaudio-tinysynth](webaudio-tinysynth library) for its sounds.
 
 Solfetta uses no cookies. Settings are stored using browser local storage.
 
@@ -109,7 +109,7 @@ The tuning setting allows fine adjustment of the tuning of the app, meaning that
 
 The relative volume of Solfetta can be changed, which is helpful for playing along with music on your phone.
 
-You can choose between three different sounds, which correspond to basic WebAudio oscillator types. I've left out the pure sine tone because the triangle wave provides an alternative "soft" tone while being audible over a wider range of notes. I'm sure some people would prefer sampled instruments but these basic tones seem to be nice and responsive and help to keep the app small.
+You can choose between a number of different FM synthesized sounds provided by the [https://github.com/g200kg/webaudio-tinysynth](webaudio-tinysynth) library.
 
 I've not been able to prevent iOS from sometimes rendering the current WebAudio context unusable (for example this can happen when an alarm sounds when you're using Solfetta, and so there is a "Fix Audio" button that can be used to reload the app when it's being run using its own home screen icon and no browser controls are available.
 
@@ -119,6 +119,6 @@ The display settings are mostly self-explanatory although you may want to look u
 
 ## Development
 
-Solfetta is just a collection of static files but because ES6 modules are being used you will to start a webserver to serve the app. After the initial `npm install` step, you can do this with `npm start`.  When it's running you can access Solfetta at `http://localhost:3000/src/index.html`. You can run the Webpack/Babel workflow that minifies the JavaScript and CSS with `npm run build`, which will generate the distribution files in the `dist` directory.
+Solfetta is just a collection of static files but because ES6 modules are being used you will need to start a webserver to serve the app. After the initial `npm install` step, you can do this with `npm start`.  When it's running you can access Solfetta at `http://localhost:3000/src/index.html`. You can run the Webpack/Babel workflow that minifies the JavaScript and CSS with `npm run build`, which will generate the distribution files in the `dist` directory.
 
 I am mostly a back end developer and haven't worked a lot in node, so some of what I've done here may be a bit unconventional (most people would have used a framework!). However, I've tried to include a decent number of comments for anyone who wants to experiment with changes.
