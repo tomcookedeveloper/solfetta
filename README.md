@@ -8,9 +8,9 @@ Solfetta is a small, simple web app designed to make it convenient to practise p
 
 You can add Solfetta to your home screen like any other web page and this will give you a more app-like experience with more space used for the app and no browser controls appearing.
 
-Solfetta is open source under the MIT license. It uses the [https://github.com/g200kg/webaudio-tinysynth](webaudio-tinysynth library) for its sounds.
+Solfetta is open source under the MIT license. It uses the [webaudio-tinysynth](https://github.com/g200kg/webaudio-tinysynth) library for its sounds.
 
-Solfetta uses no cookies. Settings are stored using browser local storage.
+Solfetta uses no cooki)es. Settings are stored using browser local storage.
 
 ### IMPORTANT NOTES:
 
@@ -109,7 +109,7 @@ The tuning setting allows fine adjustment of the tuning of the app, meaning that
 
 The relative volume of Solfetta can be changed, which is helpful for playing along with music on your phone.
 
-You can choose between a number of different FM synthesized sounds provided by the [https://github.com/g200kg/webaudio-tinysynth](webaudio-tinysynth) library.
+You can choose between a number of different FM synthesized sounds provided by the [webaudio-tinysynth](https://github.com/g200kg/webaudio-tinysynth) library.
 
 I've not been able to prevent iOS from sometimes rendering the current WebAudio context unusable (for example this can happen when an alarm sounds when you're using Solfetta, and so there is a "Fix Audio" button that can be used to reload the app when it's being run using its own home screen icon and no browser controls are available.
 
