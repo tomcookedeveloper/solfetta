@@ -339,7 +339,7 @@ function volumeDownClick() {
 
 function soundClick() {
     const soundKeys = Object.keys(Audio.getSounds());
-    Settings.setSetting("sound", soundKeys[(soundKeys.indexOf(Settings.getSetting("sound")) + 1) % soundKeys.length]);
+    Settings.setSetting("program", soundKeys[(soundKeys.indexOf(Settings.getSetting("program")) + 1) % soundKeys.length]);
     updateSettingsButtons();
 }
 
@@ -352,7 +352,7 @@ function init() {
 }
 
 function updateSettingsButtons() {
-    document.getElementById("sound").innerHTML = "Sound: " + Audio.getSounds()[Settings.getSetting("sound")];
+    document.getElementById("sound").innerHTML = "Sound: " + Audio.getSounds()[Settings.getSetting("program")];
     document.getElementById("volume").innerHTML = "Volume: " + Math.round(Settings.getSetting("volume") * 10);
     document.getElementById("tuningValue").innerHTML = "A: " + Settings.getSetting("aFrequency").toFixed(1) + "Hz";
     document.getElementById("tuningTuningValue").innerHTML = "A: " + Settings.getSetting("aFrequency").toFixed(1) + "Hz";

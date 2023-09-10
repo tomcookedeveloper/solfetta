@@ -14,7 +14,7 @@ let sessionSettings = {};
 var chooseDoLa = "Do";
 
 const storedSettings = ["audioSpeed", "volume", "raisedLowered", "highlights", "darkMode", "aFrequency",
-    "configuredDo", "tonality", "sound", "minor", "soSol", "labels", "melodyNumber", "lastRun", "playSpeed"
+    "configuredDo", "tonality", "program", "minor", "soSol", "labels", "melodyNumber", "lastRun", "playSpeed"
 ];
 
 function getSetting(key) {
@@ -30,7 +30,7 @@ function getSetting(key) {
         "darkMode": false,
         "aFrequency": 440,
         "tonality": "Major",
-        "sound": "square",
+        "program": "24",
         "minor": "do-based",
         "labels": "on",
         "melodyNumber": 0,

@@ -4,19 +4,19 @@ let synth = null;
 var playingNotes = {};
 
 const sounds = {
-    0: "Acoustic Grand",
-    1: "Electric Grand",
-    8: "Celesta",
-    11: "Vibraphone",
-    12: "Marimba",
-    18: "Rock Organ",
-    24: "Nylon guitar",
-    29: "Overdrive",
-    33: "Finger Bass",
-    46: "Harp",
-    56: "Trumpet",
-    73: "Flute",
-    112: "Tinkle Bell"
+    "0": "Acoustic Grand",
+    "2": "Electric Grand",
+    "8": "Celesta",
+    "11": "Vibraphone",
+    "12": "Marimba",
+    "18": "Rock Organ",
+    "24": "Nylon guitar",
+    "29": "Overdrive",
+    "33": "Finger Bass",
+    "46": "Harp",
+    "56": "Trumpet",
+    "73": "Flute",
+    "112": "Tinkle Bell"
 };
 
 // Solfetta used to have the ability to add extra latency to note starts to help avoid initial clicks
@@ -30,7 +30,7 @@ function getSynth() {
         synth = new WebAudioTinySynth({});
         synth.setBendRange(1, 0x80);
     }
-    synth.setProgram(1, Number.parseInt(Settings.getSetting("sound")));
+    synth.setProgram(1, Number.parseInt(Settings.getSetting("program")));
 
     return synth;
 }
