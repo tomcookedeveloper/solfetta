@@ -201,7 +201,11 @@ const playingButtons = [{
             [3, 3]
         ],
         "eventListeners": {
-            'click': function() { MelodyPlay.stopMelodyPlaying(); }
+            'click': function() {
+                MelodyPlay.clearPlayingMelody();
+                MelodyPlay.highlightNextNote();
+                MelodyPlay.stopMelodyPlaying();
+            }
         }
     }
 ];
