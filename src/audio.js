@@ -79,7 +79,7 @@ function playNote(noteValue) {
 function stopAllPlaying() {
     let keys = Object.keys(playingNotes);
     for (let i = 0; i < keys.length; i++) {
-        stopPlaying(keys[i]);
+        stopPlaying(Number.parseInt(keys[i]));
     }
 }
 
