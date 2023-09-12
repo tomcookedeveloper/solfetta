@@ -54,6 +54,22 @@ function createPanels(panelDefinitionsToCreate) {
             panelDefinitions[panelId] = panelDefinitionsToCreate[panelId];
         }
     }
+
+    // Make sure about box links are clickable
+    let links = document.querySelectorAll("a");
+    for (let i = 0; i < links.length; i++) {
+        let element = links[i];
+        element.addEventListener("click", function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            window.open(e.target.href);
+        });
+        element.addEventListener("touchend", function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            window.open(e.target.href);
+        });
+    }
 }
 
 // It's a 4x4 units box

@@ -357,7 +357,7 @@ const aboutButtons = [{
     "id": "aboutText",
     "text": "<p>Solfetta Version " + getSetting("appVersion") + "</p><p>&copy; 2023 Tom Cooke</p><p>License: MIT</p>" +
         "<p><a href=\"https://github.com/tomcookedeveloper/solfetta\" target=\"_blank\">Solfetta on GitHub</a>" +
-        "<p>Sounds by <a href=\"https://github.com/g200kg/webaudio-tinysynth\">webaudio-tinysynth</a></p>",
+        "<p>Sounds by <a href=\"https://github.com/g200kg/webaudio-tinysynth\" target=\"_blank\">webaudio-tinysynth</a></p>",
     "position": [
         [0, 0],
         [3, 3]
