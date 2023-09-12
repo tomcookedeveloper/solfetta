@@ -62,12 +62,12 @@ function createPanels(panelDefinitionsToCreate) {
         element.addEventListener("click", function(e) {
             e.stopPropagation();
             e.preventDefault();
-            window.open(e.target.href);
+            window.open(e.target.href, "_blank");
         });
         element.addEventListener("touchend", function(e) {
             e.stopPropagation();
             e.preventDefault();
-            window.open(e.target.href);
+            window.open(e.target.href, "_blank");
         });
     }
 }
