@@ -98,7 +98,7 @@ function displayHighlightsClick() {
 }
 
 function displayRaisedLoweredClick() {
-    const options = ["raised", "lowered", "both"];
+    const options = ["raised", "lowered", "both", "scale-degree-lowered"];
     Settings.setSetting("raisedLowered", options[(options.indexOf(Settings.getSetting("raisedLowered")) + 1) % options.length]);
     updateSettingsButtons();
     NoteButtons.displayNotes();
@@ -139,7 +139,7 @@ function init() {
 function updateSettingsButtons() {
     document.getElementById("displayDarkMode").innerHTML = "Dark: " + ((Settings.getSetting("darkMode")) ? "On" : "Off");
     document.getElementById("displayHighlights").innerHTML = "Highlights: " + { "on": "On", "off": "Off" }[Settings.getSetting("highlights")];
-    document.getElementById("displayRaisedLowered").innerHTML = "Solfa:<br/>" + { "raised": "Raised", "lowered": "Lowered", "both": "Both" }[Settings.getSetting("raisedLowered")];
+    document.getElementById("displayRaisedLowered").innerHTML = "Solfa:<br/>" + { "raised": "Raised", "lowered": "Lowered", "both": "Both", "scale-degree-lowered": "Scale Degree" }[Settings.getSetting("raisedLowered")];
     document.getElementById("displayMinor").innerHTML = "Minor:<br/>" + { "do-based": "Do-Based", "la-based": "La-Based" }[Settings.getSetting("minor")];
     document.getElementById("displayLabels").innerHTML = "Labels:<br/>" + { "on": "On", "off": "Off", "held-note": "Held Note" }[Settings.getSetting("labels")];
     document.getElementById("displaySoSol").innerHTML = "So/Sol: " + { "Sol": "Sol", "So": "So" }[Settings.getSetting("soSol")];

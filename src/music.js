@@ -2,18 +2,18 @@ import * as Settings from "./settings.js"
 import * as Utils from './utils.js'
 
 const noteInfoSolfa = [
-    { "both": "Do", "raised": "Do", "lowered": "Do", "value": 1 },
-    { "both": "Di/Ra", "raised": "Di", "lowered": "Ra", "value": 2 },
-    { "both": "Re", "raised": "Re", "lowered": "Re", "value": 3 },
-    { "both": "Ri/Me", "raised": "Ri", "lowered": "Me", "value": 4, "inNaturalMinor": true },
-    { "both": "Mi", "raised": "Mi", "lowered": "Mi", "value": 5 },
-    { "both": "Fa", "raised": "Fa", "lowered": "Fa", "value": 6 },
-    { "both": "Fi/Se", "raised": "Fi", "lowered": "Se", "value": 7 },
-    { "both": "Sol", "raised": "Sol", "lowered": "Sol", "value": 8 },
-    { "both": "Si/Le", "raised": "Si", "lowered": "Le", "value": 9, "inNaturalMinor": true },
-    { "both": "La", "raised": "La", "lowered": "La", "value": 10 },
-    { "both": "Li/Te", "raised": "Li", "lowered": "Te", "value": 11, "inNaturalMinor": true },
-    { "both": "Ti", "raised": "Ti", "lowered": "Ti", "value": 12 }
+    { "both": "Do", "raised": "Do", "lowered": "Do", "scale-degree-lowered": "1", "value": 1 },
+    { "both": "Di/Ra", "raised": "Di", "lowered": "Ra", "scale-degree-lowered": "b2", "value": 2 },
+    { "both": "Re", "raised": "Re", "lowered": "Re", "scale-degree-lowered": "2", "value": 3 },
+    { "both": "Ri/Me", "raised": "Ri", "lowered": "Me", "scale-degree-lowered": "b3", "value": 4, "inNaturalMinor": true },
+    { "both": "Mi", "raised": "Mi", "lowered": "Mi", "scale-degree-lowered": "3", "value": 5 },
+    { "both": "Fa", "raised": "Fa", "lowered": "Fa", "scale-degree-lowered": "4", "value": 6 },
+    { "both": "Fi/Se", "raised": "Fi", "lowered": "Se", "scale-degree-lowered": "b5", "value": 7 },
+    { "both": "Sol", "raised": "Sol", "lowered": "Sol", "scale-degree-lowered": "5", "value": 8 },
+    { "both": "Si/Le", "raised": "Si", "lowered": "Le", "scale-degree-lowered": "b6", "value": 9, "inNaturalMinor": true },
+    { "both": "La", "raised": "La", "lowered": "La", "scale-degree-lowered": "6", "value": 10 },
+    { "both": "Li/Te", "raised": "Li", "lowered": "Te", "scale-degree-lowered": "b7", "value": 11, "inNaturalMinor": true },
+    { "both": "Ti", "raised": "Ti", "lowered": "Ti", "scale-degree-lowered": "7", "value": 12 }
 ];
 
 const intervalInfo = [
