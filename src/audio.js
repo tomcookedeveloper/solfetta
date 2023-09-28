@@ -26,10 +26,25 @@ const sounds = {
 const twelfthRootOfTwo = 1.05946309436;
 
 function getSynth() {
+
+    if (synth != null) {
+        if (synth.getAudioContext().state === "interrupted" || synth.getAudioContext().state === "suspended") {
+            synth.getAudioContext().resume();
+        } else if (synth.getAudioContext.state === "closed") {
+            synth = null;
+        }
+    }
+
     if (synth == null) {
         synth = new WebAudioTinySynth({});
         synth.setBendRange(1, 0x80);
+        synth.getAudioContext().onstateChange = () => {
+            if (synth.getAudioContext().state === "interrupted") {
+                synth.allSoundOff(1);
+            }
+        };
     }
+
     synth.setProgram(1, Number.parseInt(Settings.getSetting("program")));
 
     return synth;
@@ -40,7 +55,7 @@ function initContext() {
 }
 
 function resetContext() {
-    synth = null;
+    // synth = null;
 }
 
 function updateBendLevel() {
