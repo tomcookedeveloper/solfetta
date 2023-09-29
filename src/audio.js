@@ -46,6 +46,7 @@ function getSynth() {
     }
 
     synth.setProgram(1, Number.parseInt(Settings.getSetting("program")));
+    synth.setMasterVol(Settings.getSetting("volume"));
 
     return synth;
 }
@@ -84,9 +85,8 @@ function playNote(noteValue) {
 
     getSynth();
 
-    const volume = Math.ceil(Settings.getSetting("volume") * 127);
     updateBendLevel();
-    synth.noteOn(1, noteValue + 60, volume);
+    synth.noteOn(1, noteValue + 60, 127);
 
     playingNotes[noteValue] = true;
 }
