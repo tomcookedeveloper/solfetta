@@ -1,6 +1,8 @@
 import * as Settings from './settings.js'
 
 let synth = null;
+let lastContextTime = null;
+let lastContextTimeChecked = null;
 var playingNotes = {};
 
 const sounds = {
@@ -33,6 +35,12 @@ function getSynth() {
         } else if (synth.getAudioContext.state === "closed") {
             synth = null;
         }
+
+        // Handle dead context that looks alive by detecting when currentTime stops incrementing
+        if (lastContextTime != null && lastContextTime == synth.getAudioContext().currentTime &&
+            (Date.now() - lastContextTimeChecked) > 100) {
+            synth = null;
+        }
     }
 
     if (synth == null) {
@@ -47,6 +55,8 @@ function getSynth() {
 
     synth.setProgram(1, Number.parseInt(Settings.getSetting("program")));
     synth.setMasterVol(Settings.getSetting("volume"));
+    lastContextTime = synth.getAudioContext().currentTime;
+    lastContextTimeChecked = Date.now();
 
     return synth;
 }
